@@ -19,6 +19,9 @@ Route::post('/login', 'OtentikasiController@processLogin')->name('process.login'
 Route::post('/logout', 'OtentikasiController@processLogout')->name('process.logout');
 
 Route::get('/index.html', 'SiswaController@controlPage');
+Route::get('/play/{kode}', function () {
+    return view('playujian');
+});
 Route::group(['prefix' => '/pages'], function () {
     Route::get('/ujian.html', 'SiswaController@viewUjian')->name('view.ujian');
 });

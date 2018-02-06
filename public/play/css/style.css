@@ -1,0 +1,12 @@
+
+@import url("/play/css/pixel.css");
+
+/* ------------------------------------------------------------------------ */
+/* Theme customization starts here
+/* ------------------------------------------------------------------------ */
+
+.next button {
+    float: right;
+    margin-bottom: 12px;
+    width: 200px;
+}

@@ -20,7 +20,7 @@
                 <div class="info">
                     <span class="title">PEMBIMBING</span>
                     <span class="value">
-                        <img src="{{ asset('assets/img/people/male1.png') }}" class="leader-picture" alt=""> Carol Wilson</span>
+                        <img src="{{ asset('assets/img/people/male1.png') }}" class="leader-picture" alt=""> Slamet Riyadi</span>
                 </div>
             </div>
             <div class="clearfix"></div>
