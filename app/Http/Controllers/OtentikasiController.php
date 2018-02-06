@@ -17,7 +17,7 @@ class OtentikasiController extends Controller
     }
 
     /**
-     * Page view
+     * Page view login
      * @return view
      */
     public function viewLogin()

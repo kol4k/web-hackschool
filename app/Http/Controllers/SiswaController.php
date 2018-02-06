@@ -16,26 +16,24 @@ class SiswaController extends Controller
             return dd($data);    
     }
 
+    /**
+     * Page view panel index
+     * @return view
+     */
     public function controlPage()
     {
         return view('panel');
     }
 
+    /**
+     * Page view list ujian
+     * @return view
+     */
     public function viewUjian()
     {
-        return view('pages.ujian');
-    }
-
-    public function processLogin(Request $request)
-    {
-        $client = $this->myClient->post($this->apiURL.'authenticate', [
-            'form_params' => [
-                'email' => $request->email,
-                'password' => $request->password
-            ]
-        ]);
+        $client = $this->myClient->get($this->apiURL.'user/ujian/?token_api=e406fc6d76b3c3b2ae949f5eaabc98c9306673a1');
         $response = $client->getBody();
         $data = json_decode($response,true);
-        return dd($data);    
+        return view('pages.ujian', ['data' => $data]);
     }
 }

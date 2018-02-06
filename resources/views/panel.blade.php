@@ -9,7 +9,10 @@
     <link rel="stylesheet" href="{{ asset('assets/vendor/font-awesome/css/font-awesome.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/vendor/themify-icons/css/themify-icons.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/vendor/pace/themes/orange/pace-theme-minimal.css') }}">
+    <!-- CSS Per Pages -->
+    {{--  <link rel="stylesheet" href="assets/vendor/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css">  --}}
     @yield('css')
+    <!-- End CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/main.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/skins/sidebar-nav-darkgray.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('assets/css/skins/navbar3.css') }}" type="text/css">
