@@ -41,7 +41,7 @@ class OtentikasiController extends Controller
         $response = $client->getBody();
         $data = json_decode($response,true);
         session()->put('user_signin',$data);
-        return redirect('index.html');    
+        return redirect('index.html');
     }
 
     /**

@@ -16,6 +16,15 @@ class Controller extends BaseController
 
     public function __construct(){
     	$this->myClient = new Client();
-    	$this->apiURL = 'http://localhost:8000/public/';
+        $this->apiURL = 'http://localhost:8000/public/';
+    }
+
+    /**
+     * Change Format
+     * @param $value
+     * @return response
+     */
+    public function formatDate($value) {
+        return \Carbon\Carbon::parse($value)->format('M d, Y G:i');
     }
 }

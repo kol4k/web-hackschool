@@ -5,21 +5,21 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <link rel="stylesheet" href="{{ asset('assets/vendor/bootstrap/css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/vendor/font-awesome/css/font-awesome.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/vendor/themify-icons/css/themify-icons.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/vendor/pace/themes/orange/pace-theme-minimal.css') }}">
+    <link class="default-style" rel="stylesheet" href="{{ asset('assets/vendor/bootstrap/css/bootstrap.min.css') }}">
+    <link class="default-style" rel="stylesheet" href="{{ asset('assets/vendor/font-awesome/css/font-awesome.min.css') }}">
+    <link class="default-style" rel="stylesheet" href="{{ asset('assets/vendor/themify-icons/css/themify-icons.css') }}">
+    <link class="default-style" rel="stylesheet" href="{{ asset('assets/vendor/pace/themes/orange/pace-theme-minimal.css') }}">d
     <!-- CSS Per Pages -->
-    {{--  <link rel="stylesheet" href="assets/vendor/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css">  --}}
+    {{--  <link class="default-style" rel="stylesheet" href="assets/vendor/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css">  --}}
     @yield('css')
     <!-- End CSS -->
-    <link rel="stylesheet" href="{{ asset('assets/css/main.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/skins/sidebar-nav-darkgray.css') }}" type="text/css">
-    <link rel="stylesheet" href="{{ asset('assets/css/skins/navbar3.css') }}" type="text/css">
-    <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('assets/img/apple-icon.png') }}">
-    <link rel="icon" type="image/png" sizes="96x96" href="{{ asset('assets/img/favicon.png') }}">
+    <link class="default-style" id="main-style" rel="stylesheet" href="{{ asset('assets/css/main.min.css') }}">
+    <link class="default-style" rel="stylesheet" href="{{ asset('assets/css/skins/sidebar-nav-darkgray.css') }}" type="text/css">
+    <link class="default-style" rel="stylesheet" href="{{ asset('assets/css/skins/navbar3.css') }}" type="text/css">
+    <link class="default-style" rel="apple-touch-icon" sizes="76x76" href="{{ asset('assets/img/apple-icon.png') }}">
+    <link class="default-style" rel="icon" type="image/png" sizes="96x96" href="{{ asset('assets/img/favicon.png') }}">
     @if(!session('user_signin'))
-    <script>window.location ='/'</script>
+    <script class="default-js">window.location ='/'</script>
     @endif
 </head>
 <body>
@@ -128,29 +128,13 @@
             <nav>
                 <ul class="nav" id="sidebar-nav-menu">
                     <li class="menu-group">Dashboard</li>
-                    <li><a href="profile.html"><i class="ti-dashboard"></i> <span class="title">Dashboard</span></a></li>						
+                    <li><a href="../../pages/pengumuman.html"><i class="ti-dashboard"></i> <span class="title">Dashboard</span></a></li>						
                     <li class="menu-group">Utama</li>
                     <!-- <li><a href="#"><i class="ti-dashboard"></i> <span class="title">Dashboard</span></a></li>						 -->
                     <li><a href="../../pages/ujian.html"><i class="ti-agenda"></i> <span class="title">Ujian</span></a></li>
-                    <li><a href="#"><i class="ti-write"></i> <span class="title">Catatan</span></a></li>
+                    <li><a href="../../pages/catatan.html"><i class="ti-write"></i> <span class="title">Catatan</span></a></li>
                     <li class="menu-group">Pengaturan</li>
-                    <li><a href="#"><i class="ti-settings"></i> <span class="title">Situs Web</span></a></li>												
-                    <!-- <li class="panel">
-                        <a href="#subPages" data-toggle="collapse" data-parent="#sidebar-nav-menu"><i class="ti-receipt"></i> <span class="title">Task</span> <i class="icon-submenu ti-angle-left"></i></a>
-                        <div id="subPages" class="collapse">
-                            <ul class="submenu">
-                                <li><a href="page-profile.html">Profile</a></li>
-                                <li><a href="page-login.html">Login</a></li>
-                                <li><a href="page-register.html">Register</a></li>
-                                <li><a href="page-lockscreen.html">Lockscreen</a></li>
-                                <li><a href="page-forgot-password.html">Forgot Password</a></li>
-                                <li><a href="page-404.html">Page 404</a></li>
-                                <li><a href="page-500.html">Page 500</a></li>
-                                <li><a href="page-blank.html">Blank Page</a></li>
-                            </ul>
-                        </div>
-                    </li> -->
-                    <!-- <li><a href="typography.html"><i class="ti-paragraph"></i> <span class="title">Typography</span></a></li> -->
+                    <li><a href="#"><i class="ti-settings"></i> <span class="title">Notifikasi</span></a></li>
                 </ul>
                 <button type="button" class="btn-toggle-minified" title="Toggle Minified Menu"><i class="ti-arrows-horizontal"></i></button>
             </nav>
@@ -175,12 +159,13 @@
     </div>
 
     <!-- Scripts -->
-    <script src="{{ asset('assets/vendor/jquery/jquery.min.js') }}"></script>
-    <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('assets/vendor/pace/pace.min.js') }}"></script>
-    <script src="{{ asset('assets/scripts/main-menu.js') }}"></script>
-    <script src="{{ asset('assets/scripts/app.min.js') }}"></script>
+    <script class="default-js" src="{{ asset('assets/vendor/jquery/jquery.min.js') }}"></script>
+    <script class="default-js" src="{{ asset('assets/vendor/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script class="default-js" src="{{ asset('assets/vendor/pace/pace.min.js') }}"></script>
+    <script class="default-js" src="{{ asset('assets/scripts/helper.js') }}"></script>
+    <script class="default-js" src="{{ asset('assets/scripts/main-menu.js') }}"></script>
+    <script class="default-js" src="{{ asset('assets/scripts/app.min.js') }}"></script>
     @yield('js')
-    {{--  <script src="{{ asset('assets/scripts/klorofilpro-common.min.js') }}"></script>  --}}
+    {{--  <script class="default-js" src="{{ asset('assets/scripts/klorofilpro-common.min.js') }}"></script>  --}}
 </body>
 </html>

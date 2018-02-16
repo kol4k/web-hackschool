@@ -8,7 +8,7 @@
         <!-- CSRF Token -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
         
-        <title>Laravel</title
+        <title>Laravel</title>
         
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
@@ -24,11 +24,15 @@
         <link href="{{ asset('play/css/font-awesome.min.css') }}" rel="stylesheet">
         <link href="{{ asset('play/css/responsive.css') }}" rel="stylesheet">
         
+        <script>var token = '{{ Session::get('user_signin')['api_token'] }}';</script>
+        <script>var time_start = '{{ Session::get('ujian')['waktu_mulai'] }}';</script>
+        <script>var time_end = '{{ Session::get('ujian')['waktu_selesai'] }}';</script>
         <script src="{{ asset('play/js/jquery-3.2.1.min.js') }}"></script>
         <script src="{{ asset('play/js/popper.min.js') }}"></script>
         <script src="{{ asset('play/js/bootstrap.js') }}"></script>
         <script src="{{ asset('play/js/jquery.countdown.min.js') }}"></script>
         <script src="{{ asset('play/js/course.js') }}"></script>
+        <script src="{{ asset('play/js/play.js') }}"></script>        
         
         <!-- Styles -->
         <style>
@@ -71,44 +75,6 @@
             </div>
         </nav>
     </div>
-    <!-- Modal -->
-    <div class="modal fade" id="myModal" role="dialog">
-        <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-            Survey
-            </div>
-            <div class="modal-body">
-            <form class="form-horizontal" id="profil" method="POST" action="#" enctype="multipart/form-data">
-            {{ csrf_field() }}
-            <div class="form-group">
-                    <p>Akhir pekan ini saya sering mengunjungi sosial media...</p>
-                <label class="btn btn-primary">
-                                <input type="radio" name="optradio">Facebook</label>
-                            </label>
-                            <label class="btn btn-success">
-                                <input type="radio" name="optradio">Line</label>
-                            </label>
-                            <label class="btn btn-dark">
-                                <input type="radio" name="optradio">BBM</label>
-                            </label>
-                            <label class="btn btn-info">
-                                <input type="radio" name="optradio">Telegram</label>
-                            </label>
-                <label class="btn btn-primary">
-                                <input type="radio" name="optradio">Twitter</label>
-                            </label>
-            </div>
-            
-            </div>
-            <div class="modal-footer">
-            <button type="submit" class="btn btn-default" form="profil">Submit</button>
-            </div>
-            </form>
-        </div>
-        </div>
-    </div>
-    <!-- End Modal -->
     <div class="page-title">
         <div class="container">
             <div class="row">
@@ -122,40 +88,28 @@
     </div>
     <div class="container">
         <div class="row">
+            <div class="col-sm-6" id="tasks"></div>
+            <form class="form" id="soal" action="{{ Route('process.nilai') }}" method="POST">
+            {{ csrf_field() }}
+            <div id="d_jawaban"></div>
+            {{--  <input type="hidden" name="jawaban[]" value="[]" id="jawaban">  --}}
             <div class="col-sm-6">
-                <h4>39.</h4><p>Ini merupakan bagian akhir dari sebuah teks eksposisi yang berupa penguatan kembali atas pendapat yang telah ditunjang oleh fakta-fakta dalam bagian argumentasi. Disebut apa struktur teks eksposisi yang dimaksud ….</p>
+            <label class="btn btn-primary" id="a"></label><br>
+            <label class="btn btn-primary" id="b"></label><br>
+            <label class="btn btn-primary" id="c"></label><br>
+            <label class="btn btn-primary" id="d"></label><br>
+            <label class="btn btn-primary" id="e"></label><br>
             </div>
-            <div class="col-sm-6">
-            <label class="btn btn-primary">
-                <input type="radio" name="optradio">A . Pernyataan pendapat (tesis)</label><br>
-            </label>
-            <label class="btn btn-primary">
-                <input type="radio" name="optradio">B . Argumentasi</label><br>
-            </label>
-            <label class="btn btn-primary">
-                <input type="radio" name="optradio">C . Contoh</label><br>
-            </label>
-            <label class="btn btn-primary">
-                <input type="radio" name="optradio">D . Fakta</label><br>
-            </label>
-            <label class="btn btn-primary">
-                <input type="radio" name="optradio">E . Penegasan Ulang</label><br>
-            </label>
-            </div>
+            </form>
             <div class="col-sm-12">
-                <div class="next">
-                    <button class="btn btn-primary">Berikutnya</button>
+                <div class="next" id="btn">
+                    <button class="btn btn-primary" id="next" onclick="show()">Berikutnya</button>
                 </div>
             </div>
         </div>
     </div>
     <script type="text/javascript">
-      $("#timer")
-      .countdown("2018-02-07 10:00:00", function(event) {
-        $(this).html(
-          event.strftime('<h1><i>%H</i> Jam <i>%M</i> Menit %S Detik</h1>')
-        );
-      });
+        countdownTime('#timer');
     </script>
     <div class="clear"></div>
 

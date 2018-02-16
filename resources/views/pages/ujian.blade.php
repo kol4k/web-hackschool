@@ -25,7 +25,7 @@
             </div>
             <div class="clearfix"></div>
             <div class="controls right">
-                <a href="#">Lihat Tugas</a>
+                <a onclick="getView('/pages/detail_ujian.html?code={{ $list['kode_ujian'] }}')">Lihat Tugas</a>
             </div>
         </div>
     </div>
