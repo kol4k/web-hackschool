@@ -14,8 +14,8 @@ var arrMainNav = [
 		description: "Halaman Tentang Ujian Online yang di pilih."
 	},
 	{
-		url: "../../pages/catatan.html",
-		title: "Catatan aktifitas.",
-		description: "Catatan mengenai aktifitas yang terinput kedalam data."
+		url: "../../pages/nilai.html",
+		title: "Nilai aktifitas.",
+		description: "Catatan nilai mengenai hasil ujian yang terinput kedalam data."
 	}
 ];

@@ -27,4 +27,44 @@ class Controller extends BaseController
     public function formatDate($value) {
         return \Carbon\Carbon::parse($value)->format('M d, Y G:i');
     }
+
+    /**
+     * now Function
+     */
+    public function now() {
+        return \Carbon\Carbon::now();
+    }
+
+    /**
+     * Global Get function
+     * @param url $url
+     * @param token_api @token
+     */
+    public function getFunction($url, $token)
+    {
+        $request = $this->myClient->get($this->apiURL.$url,[
+            'headers' => [
+                'Authorization' => 'Bearer '.$token
+            ]
+        ]);
+        $response = $request->getBody();
+        return $response;
+    }
+
+    /**
+     * Global Post function
+     * @param url $url
+     * @param token_api @token
+     */
+    public function postFunction($url,$token,$form)
+    {
+        $request = $this->myClient->post($this->apiURL.$url,[
+            'headers' => [
+                'Authorization' => 'Bearer '.$token
+            ],
+            'form_params' => $form
+        ]);
+        $response = $request->getBody();
+        return $response;
+    }
 }

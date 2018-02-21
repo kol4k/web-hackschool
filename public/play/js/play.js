@@ -18,11 +18,17 @@ function getParameter(theParameter) {
 }
 
 function playSoal(data) {
-$.get('http://localhost:8900/json/soal/?code=' + getParameter('code') + '&token_api=' + params['token'], function(data) {
+$.ajax({
+    url: 'http://localhost:8900/json/soal/?code=' + getParameter('code'),
+    headers: {
+        'Authorization': 'Bearer ' + params['token']
+    },
+    success: function (data) {
         soal = data;
         console.log(data);
         show();
-    });
+    }
+});
 }
 
 function show() {

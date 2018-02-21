@@ -25,15 +25,26 @@
         <link href="{{ asset('play/css/responsive.css') }}" rel="stylesheet">
         
         <script>var token = '{{ Session::get('user_signin')['api_token'] }}';</script>
-        <script>var time_start = '{{ Session::get('ujian')['waktu_mulai'] }}';</script>
-        <script>var time_end = '{{ Session::get('ujian')['waktu_selesai'] }}';</script>
+        <script>var time_start = '{{ Session::get('ujian')['message']['waktu_mulai'] }}';</script>
+        <script>var time_end = '{{ Session::get('ujian')['message']['waktu_selesai'] }}';</script>
         <script src="{{ asset('play/js/jquery-3.2.1.min.js') }}"></script>
         <script src="{{ asset('play/js/popper.min.js') }}"></script>
         <script src="{{ asset('play/js/bootstrap.js') }}"></script>
         <script src="{{ asset('play/js/jquery.countdown.min.js') }}"></script>
         <script src="{{ asset('play/js/course.js') }}"></script>
         <script src="{{ asset('play/js/play.js') }}"></script>        
-        
+        @if(session('ujian')['is']['pesan'] == 'SELESAI')
+        <script class="default-js">
+            alert('Anda tidak bisa mengerjakan. \nBatas Waktu Telah Selesai')
+            window.location ='/'
+        </script>
+        @endif
+        @if(session('ujian')['is']['pesan'] == 'BELUM MULAI')
+        <script class="default-js">
+            alert('Anda tidak bisa mengerjakan. \nUjian belum dimulai')
+            window.location ='/'
+        </script>
+        @endif
         <!-- Styles -->
         <style>
         @media (max-width: 989px) {

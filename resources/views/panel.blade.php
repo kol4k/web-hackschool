@@ -112,7 +112,7 @@
                                 <img src="{{ asset('assets/img/user.png') }}" alt="Avatar">
                             </a>
                             <ul class="dropdown-menu logged-user-menu">
-                                <li><a href="profil.html"><i class="ti-user"></i> <span>{{ Session::get('user_signin')['user']['detail']['nama'] }}</span></a></li>
+                                <li><a href="#"><i class="ti-user"></i> <span>{{ Session::get('user_signin')['user']['detail']['nama'] }}</span></a></li>
                                 <li><a href="#"><i class="ti-settings"></i> <span>Pengaturan</span></a></li>
                                 <li><a href="#" onclick="event.preventDefault();document.getElementById('logout-form').submit();"><i class="ti-power-off"></i> <span>Keluar</span></a></li>
                                 <form id="logout-form" action="{{ Route('process.logout') }}" method="POST" style="display: none;">
@@ -132,7 +132,7 @@
                     <li class="menu-group">Utama</li>
                     <!-- <li><a href="#"><i class="ti-dashboard"></i> <span class="title">Dashboard</span></a></li>						 -->
                     <li><a href="../../pages/ujian.html"><i class="ti-agenda"></i> <span class="title">Ujian</span></a></li>
-                    <li><a href="../../pages/catatan.html"><i class="ti-write"></i> <span class="title">Catatan</span></a></li>
+                    <li><a href="../../pages/nilai.html"><i class="ti-write"></i> <span class="title">Laporan Nilai</span></a></li>
                     <li class="menu-group">Pengaturan</li>
                     <li><a href="#"><i class="ti-settings"></i> <span class="title">Notifikasi</span></a></li>
                 </ul>

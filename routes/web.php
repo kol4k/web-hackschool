@@ -15,6 +15,7 @@ Route::get('/', function () {
     return view('login');
 });
 
+Route::get('/logoutx', 'OtentikasiController@processLogout');
 Route::post('/login', 'OtentikasiController@processLogin')->name('process.login');
 Route::post('/logout', 'OtentikasiController@processLogout')->name('process.logout');
 Route::get('/index.html', 'SiswaController@controlPage');
@@ -31,7 +32,7 @@ Route::group(['prefix' => '/pages'], function () {
     Route::get('/pengumuman.html', function () {
         return view('pages.pengumuman');
     })->name('pengumuman');
-    Route::get('/catatan.html', 'SiswaController@catatanView')->name('catatan');    
+    Route::get('/nilai.html', 'SiswaController@nilaiView')->name('nilai');    
 });
 
 Route::group(['prefix' => '/json'], function () {

@@ -1,3 +1,4 @@
+
 <script>
 	var requiredCSS = [
 		"{{ asset('assets/vendor/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css') }}",
@@ -6,22 +7,11 @@
 	loadCSS(requiredCSS);
 
 	var requiredJS = [
-		"{{ asset('assets/vendor/bootstrap-progressbar/js/bootstrap-progressbar.min.js') }} "
+		"{{ asset('assets/vendor/bootstrap-progressbar/js/bootstrap-progressbar.min.js') }} ",
+		"{{ asset('assets/js/helper.js') }} "
 	];
 
 	loadJS(requiredJS);
-    $(function() {
-        if($('#project-progress .progress-bar').length) {
-            $('#project-progress .progress-bar').progressbar({
-                display_text: 'fill'
-            });
-    
-            // accordion toggle collapse
-            $('.project-accordion [data-toggle="collapse"]').on('click', function() {
-                $(this).find('.toggle-icon').toggleClass('fa-minus-circle fa-plus-circle');
-            });
-        }
-    });    
 </script>
 <div id="konfirmasi" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="konfirmasi">
     <div class="modal-dialog modal-lg" role="document">
@@ -34,7 +24,7 @@
                 <center>
 					<form id="playujian" method="POST" action="{{ Route('store.ujian') }}">
 						{{ csrf_field() }}
-						<input type="hidden" name="kode_ujian" value="{{ $data['kode_ujian'] }}">
+						<input type="hidden" name="kode_ujian" value="{{ $data['message']['kode_ujian'] }}">
 					</form>
                     <img src="{{ asset('assets/img/modal-confirm-1.png') }}">
                     <p>Apakah anda yakin ingin memulainya?</p>
@@ -59,15 +49,18 @@
 								<img src="assets/img/project-logo.png" class="project-logo" alt="Project Logo">
 							</div>
 							<div class="media-body">
-								<h2 class="project-title">{{ $data['tipe'] }}</h2>
-								<span class="label label-success status">{{ $data['status'] }}</span>
+								<h2 class="project-title">{{ $data['message']['tipe'] }} - {{ $data['message']['pelajaran'] }}</h2>
+								<span class="label label-success status">{{ $data['message']['status'] }}</span>
 							</div>
 						</div>
 					</div>
 					<div class="col-md-3 text-right">
 						<div class="btn-group">
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#konfirmasi">MULAI UJIAN</button><br><br>
-							{{--  <a href="/playujian?code={{ $data['kode_ujian'] }}" type="button" class="btn btn-primary">MULAI UJIAN</a>  --}}
+							@if($data['is']['already_played'] == false)
+							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#konfirmasi">MULAI UJIAN</button><br><br>
+							@else
+							<button type="button" class="btn btn-warning">SELESAI</button><br><br>				
+							@endif
 						</div>
 					</div>
 				</div>
@@ -76,21 +69,29 @@
 						<div class="cell">
 							<div class="main-info-item">
 								<span class="title">WAKTU MULAI</span>
-								<span class="value">{{ $data['waktu_mulai'] }}</span>
+								<span class="value">{{ $data['message']['waktu_mulai'] }}</span>
 							</div>
 						</div>
 						<div class="cell">
 							<div class="main-info-item">
 								<span class="title">WAKTU SELESAI</span>
-								<span class="value">{{ $data['waktu_selesai'] }}</span>
+								<span class="value">{{ $data['message']['waktu_selesai'] }}</span>
 							</div>
 						</div>
 						<div class="cell">
 							<div class="main-info-item">
+								@if($data['is']['already_played'] == false)
 								<span class="title">PROGRESS</span>
 								<div id="project-progress" class="progress progress-transparent custom-color-orange2">
-									<div class="progress-bar" data-transitiongoal="85"></div>
+									<div class="progress-bar" data-transitiongoal="0"></div>
 								</div>
+								@else
+								<span class="title">NILAI</span>
+								{{--  <div id="project-progress" class="progress progress-transparent custom-color-orange2">
+									<div class="progress-bar" data-transitiongoal="{{ $data['is']['nilai'] }}"></div>
+								</div>  --}}
+								{{ $data['is']['nilai'] }}
+								@endif
 							</div>
 						</div>
 					</div>
@@ -119,71 +120,32 @@
 			</div>
 			<div class="panel-body">
 				<ul class="list-unstyled list-contacts">
+					@if($rank === [])
+						<p class="text-center">Jadilah yang Pertama mengerjakan!</p>
+					@endif
+					@foreach($rank as $list_rank)
 					<li>
 						<div class="media">
-							<img src="assets/img/people/female3.png" class="picture" alt="">
-							<span class="status online"></span>
-						</div>
-						<div class="info">
-							<span class="name">Theresa Santos</span>
-							<span class="title">Team Leader</span>
-						</div>
-						<div class="controls">
-							<a href="#"><i class="fa fa-commenting-o"></i></a>
-						</div>
-					</li>
-					<li>
-						<div class="media">
-							<div class="picture custom-bg-blue3">MB</div>
+							<div class="picture custom-bg-blue3">{{ $list_rank['user']['photo'] }}</div>
 							<span class="status"></span>
 						</div>
 						<div class="info">
-							<span class="name">Michael Bradley</span>
-							<span class="email">Business Analyst</span>
+							<span class="name">{{ $list_rank['user']['nama'] }}</span>
+							<span class="email">{{ $list_rank['user']['kelas'] }}</span>
 						</div>
 						<div class="controls">
-							<a href="#"><i class="fa fa-commenting-o"></i></a>
+							@if($loop->iteration === 1)
+							<a href="#"><font style="color:#e56565;">{{ $loop->iteration }}</font></a>
+							@elseif($loop->iteration === 2)
+							<a href="#"><font style="color:#f8bc4c">{{ $loop->iteration }}</font></a>							
+							@elseif($loop->iteration === 3)
+							<a href="#"><font style="color:#ddd75a">{{ $loop->iteration }}</font></a>							
+							@else
+							<a href="#"><font>{{ $loop->iteration }}</font></a>							
+							@endif														
 						</div>
 					</li>
-					<li>
-						<div class="media">
-							<img src="assets/img/people/male1.png" class="picture" alt="">
-							<span class="status online"></span>
-						</div>
-						<div class="info">
-							<span class="name">Bruce Bowman</span>
-							<span class="email">UI Designer</span>
-						</div>
-						<div class="controls">
-							<a href="#"><i class="fa fa-commenting-o"></i></a>
-						</div>
-					</li>
-					<li>
-						<div class="media">
-							<img src="assets/img/people/female4.png" class="picture" alt="">
-							<span class="status"></span>
-						</div>
-						<div class="info">
-							<span class="name">Karen Price</span>
-							<span class="email">Legal</span>
-						</div>
-						<div class="controls">
-							<a href="#"><i class="fa fa-commenting-o"></i></a>
-						</div>
-					</li>
-					<li>
-						<div class="media">
-							<img src="assets/img/people/female5.png" class="picture" alt="">
-							<span class="status online"></span>
-						</div>
-						<div class="info">
-							<span class="name">Martha Mendoza</span>
-							<span class="email">Full-Stack Developer</span>
-						</div>
-						<div class="controls">
-							<a href="#"><i class="fa fa-commenting-o"></i></a>
-						</div>
-					</li>
+					@endforeach
 				</ul>
 			</div>
 		</div>

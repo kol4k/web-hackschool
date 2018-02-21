@@ -31,10 +31,21 @@ class SiswaController extends Controller
      */
     public function viewUjian()
     {
-        $client = $this->myClient->get($this->apiURL.'user/ujian/?token_api='.session('user_signin')['api_token']);
-        $response = $client->getBody();
-        $data = json_decode($response,true);
+        $client = $this->getFunction('user/ujian/',session('user_signin')['api_token']);
+        $data = json_decode($client, true);
         return view('pages.ujian', ['data' => $data]);
+    }
+
+    /**
+     * Get Rank 
+     * @param int $id
+     * @return $data
+     */
+    public function getRank($id)
+    {
+        $client = $this->getFunction('user/ujian/rank/'.$id,session('user_signin')['api_token']);        
+        $data = json_decode($client,true);
+        return $data;
     }
 
     /**
@@ -43,10 +54,10 @@ class SiswaController extends Controller
      */
     public function detailUjian(Request $request)
     {
-        $client = $this->myClient->get($this->apiURL.'user/ujian/'.$request->code.'?token_api='.session('user_signin')['api_token']);
-        $response = $client->getBody();
-        $data = json_decode($response,true);
-        return view('pages.detailujian',['data' => $data['message']]);
+        $client = $this->getFunction('user/ujian/'.$request->code,session('user_signin')['api_token']);        
+        $data = json_decode($client,true);
+        $dRank = $this->getRank($data['message']['id']);
+        return view('pages.detailujian',['data' => $data, 'rank' => $dRank]);
     }
 
 
@@ -56,9 +67,8 @@ class SiswaController extends Controller
      */
     public function getSoal(Request $request)
     {
-        $qSoal = $this->myClient->get($this->apiURL.'user/ujian/soal/'.$request->code.'?token_api='.session('user_signin')['api_token']);
-        $rSoal = $qSoal->getBody();
-        $dataSoal = json_decode($rSoal,true);
+        $qSoal = $this->getFunction('user/ujian/soal/'.$request->code,session('user_signin')['api_token']);        
+        $dataSoal = json_decode($qSoal,true);
         
         session()->put('soal', $dataSoal['message']);
         foreach($dataSoal['message'] as $no => $value) {
@@ -81,16 +91,15 @@ class SiswaController extends Controller
      */
     public function storeUjian(Request $request)
     {
-        $client = $this->myClient->get($this->apiURL.'user/ujian/'.$request->kode_ujian.'?token_api='.session('user_signin')['api_token']);
-        $response = $client->getBody();
-        $data = json_decode($response,true);
+        $client = $this->getFunction('user/ujian/'.$request->kode_ujian,session('user_signin')['api_token']);        
+        $data = json_decode($client,true);
         
         if(session('ujian')['kode_ujian'] =! $data['message']['kode_ujian']) {
             echo 'anda masih mengerjakan tugas';
             echo session('ujian')['kode_ujian'];
             echo $data['message']['kode_ujian'];
         } else {
-            session()->put('ujian', $data['message']);
+            session()->put('ujian', $data);
             return redirect('playujian?code='.$request->kode_ujian);
         }
     }
@@ -103,6 +112,7 @@ class SiswaController extends Controller
     {
         $nilai = 0;
         $zero = 0;
+
         if(is_array($request->pilihan) || is_object($request->pilihan)) {
             foreach($request->pilihan as $no => $data) {
                 if($data == session('jawaban')[$no]['jawaban']) {
@@ -111,26 +121,36 @@ class SiswaController extends Controller
             }
         }
         $hitung = ($nilai / 4) * 10;
-        $client = $this->myClient->post($this->apiURL.'user/ujian/result_nilai'.'?token_api='.session('user_signin')['api_token'], [
-            'form_params' => [
-                'user' => session('user_signin')['user']['id'],
-                'ujian' => session('ujian')['id'],
-                'nilai' => $hitung
-            ]
-        ]);
+        
+        $forms = [
+            'ujian' => session('ujian')['message']['id'],
+            'nilai' => $hitung
+        ];
+        $client = $this->postFunction(
+            'user/ujian/result_nilai',
+            session('user_signin')['api_token'],
+            $forms
+        );
+        
         $request->session()->flash('detail', session('ujian'));
         session()->forget('ujian');
         session()->forget('soal');
-        // dd(session('ujian'));
         return view('hasilujian', ['nilai' => $hitung]);
     }
 
     /**
-     * Store nilai
+     * Pages nilai
      * @return view
      */
-    public function catatanView(Request $request)
+    public function nilaiView(Request $request)
     {
-        return view('pages.catatan');
+        $client = $this->getFunction('user/report/nilai'.$request->kode_ujian,session('user_signin')['api_token']);        
+        $data = json_decode($client,true);
+        
+        // foreach($data['nilai'] as $no => $val) {
+        //     $data[$no]['waktu']['date'] = $this->formatDate($val['waktu']['date']);
+        // }
+        return view('pages.nilai', ['nilai' => $data['nilai']]);
+        // dd($data['nilai']);
     }
 }

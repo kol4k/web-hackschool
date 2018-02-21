@@ -79,7 +79,7 @@
                 <div class="container">
                     <div class="panel panel-headline">
                         <div class="panel-body">
-                            <p class="lead">Anda baru saja menyelesaikan ujian {{ Session::get('detail')['pelajaran']  }} yang ber-tipe {{ Session::get('detail')['tipe']  }} dengan hasil nilai sebesar <code>{{ $nilai }}</code>.</p>                            
+                            <p class="lead">Anda baru saja menyelesaikan ujian {{ Session::get('detail')['message']['pelajaran']  }} yang ber-tipe {{ Session::get('detail')['message']['tipe']  }} dengan hasil nilai sebesar <code>{{ $nilai }}</code>.</p>                            
                             <p class="text-primary">Terimakasih sudah mengerjakan dan terus belajar yaa... ^_^</p>
                     
                             <hr>

@@ -167,7 +167,8 @@ return [
         /*
          * Package Service Providers...
          */
-
+        RenatoMarinho\LaravelPageSpeed\ServiceProvider::class,
+        
         /*
          * Application Service Providers...
          */
